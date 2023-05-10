@@ -9,7 +9,7 @@ var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
 {
-    builder.Services.AddDbContext<>(options =>
+    builder.Services.AddDbContext<DbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStringsDev")));
 }
 
