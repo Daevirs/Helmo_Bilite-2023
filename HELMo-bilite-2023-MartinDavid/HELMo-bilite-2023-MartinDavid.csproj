@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Bogus" Version="34.0.2" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.16" />
       <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.16" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.16" />
@@ -16,6 +17,7 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     </ItemGroup>
 
 </Project>
