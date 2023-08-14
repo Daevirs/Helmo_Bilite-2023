@@ -1,0 +1,34 @@
+﻿@model IEnumerable<HELMo_bilite_2023_MartinDavid.ViewModel.LivraisonsViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+
+@{ switch (ViewBag.Role)
+   {
+       case "Admin":
+           <partial name="Affichages/_Admin" model="@Model" />
+           break;
+       case "Dispatcher":
+           <partial name="Affichages/_Dispatcheur" model="@Model" />
+           break;
+       case "Client":
+           <partial name="Affichages/_Client" model="@Model" />
+           break;
+       case "Chauffeur":
+           <partial name="Affichages/_Chauffeur" model="@Model" />
+           break;
+   }
+}
+</body>
+</html>

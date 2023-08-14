@@ -1,0 +1,35 @@
+﻿@model IndexModel
+
+<div class="form-floating">
+    <input asp-for="Input.NomEntreprise" class="form-control" />
+    <label asp-for="Input.NomEntreprise" class="form-label"></label>
+    <span asp-validation-for="Input.NomEntreprise" class="text-danger"></span>
+</div>
+<div class="form-floating">
+    <input asp-for="Input.Rue" class="form-control" />
+    <label asp-for="Input.Rue" class="form-label"></label>
+    <span asp-validation-for="Input.Rue" class="text-danger"></span>
+</div>
+<div class="form-floating">
+    <input asp-for="Input.CodePostal" class="form-control" />
+    <label asp-for="Input.CodePostal" class="form-label"></label>
+    <span asp-validation-for="Input.CodePostal" class="text-danger"></span>
+</div>
+<div class="form-floating">
+    <input asp-for="Input.Ville" class="form-control" />
+    <label asp-for="Input.Ville" class="form-label"></label>
+    <span asp-validation-for="Input.Ville" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="Input.photo" class="control-label"></label>
+    <input asp-for="Input.photo" type="file" accept=".png,.jpg,.jpeg,.gif" class="form-control" />
+    <span asp-validation-for="Input.photo" class="text-danger"></span>
+    <input type="hidden" asp-for="Input.cheminPhoto" />
+</div>
+@if(Model.Input.cheminPhoto != null)
+{
+    <div class="form-group">
+        <p>Logo de votre entreprise</p>
+        <img src="@Model.Input.cheminPhoto" alt="Logo entreprise" class="img-fluid img-thumbnail" style="max-height: 20em; max-width: 20em" />
+    </div>
+}

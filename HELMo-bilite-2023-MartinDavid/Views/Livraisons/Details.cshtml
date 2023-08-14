@@ -1,0 +1,100 @@
+﻿@model Livraison
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Livraison</h4>
+    <hr />
+    @if (User.IsInRole("Client") && Model?.Status == StatusLivraison.Attente)
+        {
+            <a asp-action="Delete" asp-route-id="@Model?.Id">Supprimer la commande</a>
+        }
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Chargement)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Chargement)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dechargement)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dechargement)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Contenu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Contenu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureChargement)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HeureChargement)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.HeureDechargementAttendu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.HeureDechargementAttendu)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+        @if (Model?.Status == StatusLivraison.EnCours)
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.IdChauffeur)
+            </dt>
+            <dd class = "col-sm-10">
+                @ViewBag.Chauffeur
+            </dd>
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.IdCamion)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.Camion
+            </dd>
+        }
+        @if (Model?.Status == StatusLivraison.Echec)
+        {
+            <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.MotifExcuse)
+            </dt>
+            <dd class = "col-sm-10">
+                @ViewBag.Motif
+            </dd>
+        }
+        @if (Model?.Status == StatusLivraison.Livree || Model?.Status == StatusLivraison.Echec)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Commentaire)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Commentaire)
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>
+</body>
+</html>

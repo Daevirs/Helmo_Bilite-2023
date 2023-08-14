@@ -1,0 +1,66 @@
+﻿@using HELMo_bilite_2023_MartinDavid.ViewModel
+@model IEnumerable<LivraisonsViewModel>
+
+<!DOCTYPE html>
+
+<p>
+    <a asp-action="Create">Nouvelle commande</a>
+</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Chargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.HeureChargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Dechargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.HeureDechargementAttendu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Contenu)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var livraison in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor( item => livraison.Client)
+                </td>
+                <td>
+                    @Html.DisplayFor( item => livraison.Chargement)
+                </td>
+                <td>
+                    @Html.DisplayFor( item => livraison.HeureChargement)
+                </td>
+                <td>
+                    @Html.DisplayFor( item => livraison.Dechargement)
+                </td>
+                <td>
+                    @Html.DisplayFor( item => livraison.HeureDechargementAttendu)
+                </td>
+                <td>
+                    @Html.DisplayFor( item => livraison.Contenu)
+                </td>
+                <td>
+                    @if (livraison.Status == StatusLivraison.Attente)
+                    {
+                        <a asp-action="Edit" asp-route-id="@livraison.Id">Modifier</a>
+                    }   
+                    <a asp-action="Details" asp-route-id="@livraison.Id">Détails</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

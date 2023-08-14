@@ -1,0 +1,91 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "S'inscrire";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>créer un nouveau compte.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            @* Si une erreur est survenue, on l'affiche et on vide le ViewData["Error"] *@
+            @if (ViewData["Error"] != null)
+            {
+                <p style="color: firebrick;">@ViewData["Error"]</p>
+                ViewData["Error"] = null;
+            }
+            
+            @* Permet de choisir entre les 3 roles (admin exclu)  *@
+            <div>
+                <p> Je suis :</p>
+                <input class="form-check-input" type="checkbox" role="switch" id="switchForm" onclick="switchFormulaire()">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Membre HELMo</label>
+                <table class="Membre">
+                    <tr>
+                        <th><label class="form-check-label">Dispatcher  </label></th>
+                        <th>
+                            <label class="switch Membre">
+                                <input class="form-check-input Membre" type="checkbox" aria-required="true" id="roleBoutton" onclick="switchRole()"/>
+                                <span class="slider round"></span>
+                            </label>
+                        </th>
+                        <th><label class="form-check-label">  Chauffeur</label></th>
+                    </tr>
+                </table>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Role" class="form-control" aria-required="true" type="hidden" value="Client" id="role" />
+                <label asp-for="Input.Role"></label>
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
+                </div>
+            <div class="form-floating">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            
+            @* Section Client *@
+            <partial name="RegisterPartial/_Client"/>
+            
+            @* Section Membre *@
+            <partial name="RegisterPartial/_Membre"/>
+            
+            @* Section Dispatcher *@
+            <div class="form-floating">
+                <select asp-for="Input.Diplome" class="form-control Membre Dispatcher" aria-required="true" asp-items="Html.GetEnumSelectList<Diplome>()" id="etude"></select>
+                <label asp-for="Input.Diplome" class="Membre Dispatcher"></label>
+                <span asp-validation-for="Input.Diplome" class="text-danger"></span>
+            </div>
+            
+            @* Section Chauffeur *@
+            <label asp-for="Input.PermisB" class="form-check-label Membre Chauffeur"></label>
+            <input asp-for="Input.PermisB" class="form-check-input Membre Chauffeur" aria-required="true" type="checkbox">
+            <label asp-for="Input.PermisC" class="form-check-label Membre Chauffeur"></label>
+            <input asp-for="Input.PermisC" class="form-check-input Membre Chauffeur" aria-required="true" type="checkbox">
+            <label asp-for="Input.PermisCE" class="form-check-label Membre Chauffeur"></label>
+            <input asp-for="Input.PermisCE" class="form-check-input Membre Chauffeur" aria-required="true" type="checkbox">
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">S'inscrire</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/RegisterForm.js" type="text/javascript"></script>
+}

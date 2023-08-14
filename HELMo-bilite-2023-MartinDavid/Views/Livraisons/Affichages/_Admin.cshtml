@@ -1,0 +1,63 @@
+﻿@using HELMo_bilite_2023_MartinDavid.ViewModel
+@model IEnumerable<LivraisonsViewModel>
+
+<!DOCTYPE html>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Chargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.HeureChargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Dechargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.HeureDechargementAttendu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Contenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(nom => nom.Status)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach(var livraison in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor( item => livraison.Client)
+            </td>
+            <td>
+                @Html.DisplayFor( item => livraison.Chargement)
+            </td>
+            <td>
+                @Html.DisplayFor( item => livraison.HeureChargement)
+            </td>
+            <td>
+                @Html.DisplayFor( item => livraison.Dechargement)
+            </td>
+            <td>
+                @Html.DisplayFor( item => livraison.HeureDechargementAttendu)
+            </td>
+            <td>
+                @Html.DisplayFor( item => livraison.Contenu)
+            </td>
+            <td>
+                @Html.DisplayFor( item => livraison.Status)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@livraison.Id">Détails</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

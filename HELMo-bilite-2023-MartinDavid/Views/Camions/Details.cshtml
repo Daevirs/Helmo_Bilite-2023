@@ -1,0 +1,66 @@
+﻿@model HELMo_bilite_2023_MartinDavid.ViewModel.DetailsCamionViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+
+<div>
+    <h4>Camion</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Modele)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Modele)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Marque)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Marque)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayFor(model => model.Marque)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Immatriculation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Tonnage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Tonnage)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Photo)
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.Photo != null)
+            {
+                <img src="@Model.Photo" alt="N/A" class="img-fluid img-thumbnail" style="max-height: 9em; max-width: 9em" />
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Immatriculation">Edit</a> |
+    <a asp-action="Index">Retour à la liste</a>
+</div>
+</body>
+</html>

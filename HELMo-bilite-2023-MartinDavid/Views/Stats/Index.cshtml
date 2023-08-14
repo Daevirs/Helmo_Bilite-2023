@@ -1,0 +1,72 @@
+﻿@model List<HELMo_bilite_2023_MartinDavid.ViewModel.StatistiquesViewModel>
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery csrf
+
+@functions{
+    public string GetAntiCsrfToken()
+    {
+        return csrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
+<input type="hidden" id="RequestCsrfToken" name="RequestCsrfToken" value="@GetAntiCsrfToken()" />
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Statistiques";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Index" method="get">
+    <a asp-action="Index" class="btn btn-primary">Afficher toutes les livraisons</a>
+    <div class="form-action">
+        Client: <input type="text" id="ChercherClient" name="ChercherClient" style="margin: 5px"/> 
+    </div>
+    <div class="form-action">
+        Chauffeur: <input type="text" id="ChercherChauffeur" name="ChercherChauffeur" style="margin: 5px"/>
+    </div>
+    <div class="form-action">
+        Date: <input type="date" id="Date" name="Date" style="margin: 5px"/>
+    </div>
+    <input type="submit" value="Rechercher" class="btn btn-primary" />
+</form>
+
+<p>Livraison réussie : @ViewBag.Reussie</p>
+<p>Livraison ratée : @ViewBag.Ratee</p>
+<p>Pourcentage de livraison réussie : @{ @Math.Round(ViewBag.Pourcentage, 2) } %</p>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ElementAt(0).Client)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElementAt(0).Chauffeur)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElementAt(0).Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ElementAt(0).Status)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>@Html.DisplayFor(item => item.ElementAt(i).Client)</td>
+            <td>@Html.DisplayFor(item => item.ElementAt(i).Chauffeur)</td>
+            <td>@Html.DisplayFor(item => item.ElementAt(i).Date)</td>
+            <td>@Html.DisplayFor(item => item.ElementAt(i).Status)</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/jquery-ui/jquery-ui.js"></script>
+    <script src="~/jquery-ui/jquery-ui.min.js"></script>
+    <script src="~/js/AutocompleterClient.js"></script>
+    <script src="~/js/AutocompleterChauffeur.js"></script>
+}
