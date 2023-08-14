@@ -34,6 +34,7 @@ public class AjouterCamionViewModel
     [DisplayName("Charge maximale (en kg)")]
     public float Tonnage { get; set; }
     [DataType(DataType.Upload)]
+    [Required]
     public IFormFile? Photo { get; set; }
     [DisplayName("Photo")]
     public string? CheminPhoto { get; set; }

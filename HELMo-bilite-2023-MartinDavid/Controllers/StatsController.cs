@@ -122,6 +122,9 @@ public class StatsController : Controller
                 {
                     emptyViewModel
                 };
+            ViewBag.Reussie = 0;
+            ViewBag.Ratee = 0;
+            ViewBag.Pourcentage = 0.0;
             return View(emptyViewModelList);
         }
 
