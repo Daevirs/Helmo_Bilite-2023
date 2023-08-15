@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAftxx0utRH0WP2VpbBXxFGQAAAAACAAAAAAAQZgAAAAEAACAAAAATBw0hbBLgYi5oU6HKdPqOlXOoIGkjJZhBeWjg4N7pIQAAAAAOgAAAAAIAACAAAABs1xcRZ9YA2C1thAoqtKp0+2imCeBfcTzqxCAU0vq2rSAAAACsATeBQ8tF7UG2yL2EQtjQR76dztjkl1kLM3NlZUVx5EAAAAAvfSmW6t3Fs/MZmsa/0iTOYY5bi2ettZvKhNM9UAoxA0Lfyjh02TEtuuLaCmVPH8As5qdG7E1YiJZfxvavQ/AT</EncryptedPassword>
+    <History>True|2023-08-15T08:32:50.6550331Z;True|2023-08-15T10:31:04.9686378+02:00;True|2023-08-15T10:11:46.7788013+02:00;True|2023-08-15T10:10:46.7645061+02:00;True|2023-08-15T10:06:56.0664205+02:00;True|2023-08-15T10:06:00.5617544+02:00;True|2023-08-15T10:05:04.4960915+02:00;True|2023-08-15T10:00:38.3326909+02:00;True|2023-08-15T09:55:24.9771295+02:00;True|2023-08-15T09:49:58.9996777+02:00;True|2023-08-15T04:06:39.1694009+02:00;True|2023-08-15T04:05:33.5799828+02:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="ConnectionStringsProd">
+      <Value>Data Source=192.168.128.18%3bUser ID=in21b10060%3bPassword=0060%3bConnect Timeout=30%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="HELMo_bilite_2023_MartinDavid.Models.DbContextHelmoBilite">
+      <Value>Data Source=192.168.128.18%3bUser ID=in21b10060%3bPassword=0060%3bConnect Timeout=30%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

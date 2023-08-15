@@ -2,6 +2,7 @@
 using HELMo_bilite_2023_MartinDavid.Models;
 using HELMo_bilite_2023_MartinDavid.Repositories;
 using HELMo_bilite_2023_MartinDavid.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,8 @@ public class StatsController : Controller
         _context = context;
     }
     // GET: Stats
-        public async Task<IActionResult> Index(DateTime date, string chercherClient = "", string chercherChauffeur = "")
+    [Authorize(Roles = "Admin")]
+        public Task<IActionResult> Index(DateTime date, string chercherClient = "", string chercherChauffeur = "")
         {
             int livraisonReussie = 0;
             int nbreLivraison = 0;
@@ -31,17 +33,17 @@ public class StatsController : Controller
             // Cas où aucune livraisons
             if (_context.Livraisons == null || !livraisons.Any())
             {
-                return emptyViewModel();
+                return Task.FromResult(emptyViewModel());
             }
 
-            var statsViewModelList = new List<StatistiquesViewModel>();
-            if(string.IsNullOrEmpty(chercherClient) && string.IsNullOrEmpty(chercherChauffeur) && date == DateTime.MinValue)
+            var statsViewModelList = new List<StatsViewModel>();
+            if(string.IsNullOrWhiteSpace(chercherClient) && string.IsNullOrWhiteSpace(chercherChauffeur) && date == DateTime.MinValue)
             {
                 // Cas où on ne fait aucune recherche
                 foreach (Livraison livraison in livraisons)
                 {
                     nbreLivraison++;
-                    StatistiquesViewModel statsViewModel = createViewModel(livraison, out statsViewModel);
+                    StatsViewModel statsViewModel = createViewModel(livraison, out statsViewModel);
                     statsViewModelList.Add(statsViewModel);
                     if (livraison.Status == StatusLivraison.Livree)
                     {
@@ -50,7 +52,7 @@ public class StatsController : Controller
                 }
 
                 Statistiques(livraisonReussie, nbreLivraison);
-                return View(statsViewModelList.ToList());
+                return Task.FromResult<IActionResult>(View(statsViewModelList.ToList()));
                 // Cas où on spécifie une recherche sur le client
             }
             if(!string.IsNullOrEmpty(chercherClient))
@@ -77,14 +79,14 @@ public class StatsController : Controller
                 livraisons = livraisons.Where(d => d.HeureFinLivraison < date.AddDays(1) && d.HeureFinLivraison > date);
             }
 
-            if (livraisons == null | !livraisons.Any())
+            if (livraisons == null || !livraisons.Any())
             {
-                return emptyViewModel();
+                return Task.FromResult(emptyViewModel());
             }
             foreach (Livraison livraison in livraisons)
             {
                 nbreLivraison++;
-                StatistiquesViewModel statsViewModel = createViewModel(livraison, out statsViewModel);
+                StatsViewModel statsViewModel = createViewModel(livraison, out statsViewModel);
                 statsViewModelList.Add(statsViewModel);
                 if (livraison.Status == StatusLivraison.Livree)
                 {
@@ -93,7 +95,7 @@ public class StatsController : Controller
             }
 
             Statistiques(livraisonReussie, nbreLivraison);
-            return View(statsViewModelList.ToList());
+            return Task.FromResult<IActionResult>(View(statsViewModelList.ToList()));
         }
 
         private void Statistiques(int livraisonReussie, int nbreLivraison)
@@ -105,20 +107,20 @@ public class StatsController : Controller
             }
             else
             {
-                ViewBag.Pourcentage = 0;
+                ViewBag.Pourcentage = 0.0;
             }
         }
 
         private IActionResult emptyViewModel()
         {
-            var emptyViewModel = new StatistiquesViewModel
+            var emptyViewModel = new StatsViewModel
             {
                 Client = "N/A",
                 Chauffeur = "N/A",
                 Date = DateTime.UnixEpoch,
                 Status = StatusLivraison.Attente
             };
-            var emptyViewModelList = new List<StatistiquesViewModel>
+            var emptyViewModelList = new List<StatsViewModel>
                 {
                     emptyViewModel
                 };
@@ -128,9 +130,9 @@ public class StatsController : Controller
             return View(emptyViewModelList);
         }
 
-        private StatistiquesViewModel createViewModel(Livraison livraison, out StatistiquesViewModel statsViewModel)
+        private StatsViewModel createViewModel(Livraison livraison, out StatsViewModel statsViewModel)
         {
-            statsViewModel = new StatistiquesViewModel();
+            statsViewModel = new StatsViewModel();
             var client = _client.TrouverClient(livraison.ClientId);
             statsViewModel.Client = client.UserName;
 

@@ -12,10 +12,10 @@ public class ClientsController : Controller
     private readonly DbContextHelmoBilite _context;
     private readonly ClientRepository _client;
 
-    public ClientsController(DbContextHelmoBilite context, ClientRepository client)
+    public ClientsController(DbContextHelmoBilite context)
     {
         _context = context;
-        _client = client;
+        _client = new (_context);
     }
 
     // GET: Clients
@@ -23,9 +23,7 @@ public class ClientsController : Controller
     public async Task<IActionResult> Index()
     {
         return _client.Clients != null
-            ? View(_client.Clients
-                .Where(client => _context.Livraisons.Count(livraison => client.Id == livraison.ClientId) > 0)
-                .ToList())
+            ? View(_client.Clients.ToList())
             : Problem("Entity set 'HelmobiliteDbContext.Drivers'  is null.");
     }
 

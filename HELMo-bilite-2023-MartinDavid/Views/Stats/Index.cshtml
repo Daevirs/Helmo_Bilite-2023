@@ -1,4 +1,4 @@
-﻿@model List<HELMo_bilite_2023_MartinDavid.ViewModel.StatistiquesViewModel>
+﻿@model List<HELMo_bilite_2023_MartinDavid.ViewModel.StatsViewModel>
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery csrf
 
 @functions{
@@ -10,7 +10,6 @@
 
 <input type="hidden" id="RequestCsrfToken" name="RequestCsrfToken" value="@GetAntiCsrfToken()" />
 @{
-    Layout = "_Layout";
     ViewData["Title"] = "Statistiques";
 }
 
