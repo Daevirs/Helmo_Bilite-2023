@@ -6,7 +6,7 @@ namespace HELMo_bilite_2023_MartinDavid.ViewModel;
 
 public class LivraisonsViewModel
 {
-    public string Id { get; set; }
+    public string? Id { get; set; }
     [DisplayName("Date de chargement")]
     public string HeureChargement { get; set; } 
     
@@ -30,8 +30,7 @@ public class LivraisonsViewModel
     
     // Nom du client qui crée la livraison
     [DisplayName("Client")]
-    
-    public string Client{ get; set; } 
+    public string? Client{ get; set; } 
     
     public bool Confiance { get; set; }
 }

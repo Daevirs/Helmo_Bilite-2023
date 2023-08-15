@@ -1,0 +1,71 @@
+﻿@model IEnumerable<HELMo_bilite_2023_MartinDavid.ViewModel.LivraisonsViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "IndexClient";
+}
+
+<div>
+    <h2>Information client</h2>
+    <p>Nom de l'entreprise: @ViewBag.ClientName</p>
+    <p>Adresse de l'entreprise: @ViewBag.ClientAdress</p>
+</div>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Chargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dechargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contenu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeureChargement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeureDechargementAttendu)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Chargement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Dechargement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contenu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureChargement)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeureDechargementAttendu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            @if (item.Id != null)
+            {
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Détails</a>
+                </td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Retour à la liste</a>
+</div>

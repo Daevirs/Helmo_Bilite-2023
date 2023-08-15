@@ -44,6 +44,57 @@ namespace HELMo_bilite_2023_MartinDavid.Controllers
             ViewBag.Role = role;
             return View(_livraison.RecupererLivraison(GetConnectedUser(), role).AsEnumerable());
         }
+        
+        // GET: Livraisons/IndexClient
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> IndexClient(string? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var client = _client.TrouverClient(id);
+            SiegeSocial siege = _client.TrouverSiegeSocialClient(client.SiegeSocialId);
+            ViewBag.ClientName = client.NomEntreprise;
+            ViewBag.ClientAdress = $"{siege.Rue} {siege.CodePostal} {siege.Pays}, {siege.Pays}";
+
+            var livraisons = _context.Livraisons.Where(livraison => livraison.ClientId == id)
+                .OrderByDescending(livraison => livraison.HeureDechargementAttendu).ToList();
+            var viewModels = new List<LivraisonsViewModel>();
+            if (livraisons.Count == 0)
+            {
+                viewModels.Add(new LivraisonsViewModel
+                    {
+                        Chargement = "Aucune livraison",
+                        Dechargement = "Aucune livraison",
+                        Contenu = "Aucune livraison",
+                        HeureChargement = "Aucune livraison",
+                        HeureDechargementAttendu = "Aucune livraison",
+                        Status = StatusLivraison.Attente,
+                        Confiance = false
+                    }
+                );
+                return View(viewModels);
+            }
+            viewModels = new List<LivraisonsViewModel>();
+            foreach (var livraison in livraisons)
+            {
+                viewModels.Add(new LivraisonsViewModel
+                {
+                    Contenu = livraison.Contenu,
+                    HeureChargement = livraison.HeureChargement.ToString("Le dd MMMM yyyy à H:mm"),
+                    HeureDechargementAttendu = livraison.HeureDechargementAttendu.ToString("Le dd MMMM yyyy à H:mm"),
+                    Chargement = livraison.Chargement,
+                    Dechargement = livraison.Dechargement,
+                    Status = livraison.Status,
+                    Confiance = client.Confiance,
+                    Id = livraison.Id
+                });
+            }
+
+            return View(viewModels);
+        }
 
         // GET: Livraisons/Details/5
         [Authorize(Roles = "Client, Chauffeur, Dispatcher, Admin")]
